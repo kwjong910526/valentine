@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My 宝贝老婆 ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500&display=swap');
@@ -16,16 +16,17 @@
             background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
             font-family: 'Quicksand', sans-serif;
             overflow: hidden;
+            touch-action: manipulation; /* Prevents zooming on fast taps */
         }
 
         .container {
             text-align: center;
             background: rgba(255, 255, 255, 0.9);
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
-            max-width: 400px;
-            width: 85%;
+            max-width: 350px;
+            width: 80%;
             z-index: 10;
         }
 
@@ -33,24 +34,26 @@
             font-family: 'Pacifico', cursive;
             color: #d63384;
             line-height: 1.4;
-            transition: all 0.3s ease;
+            font-size: 1.8rem;
         }
 
         .buttons {
             display: flex;
+            flex-direction: column; /* Stacked for easier mobile reach */
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            min-height: 200px;
+            gap: 15px;
+            min-height: 250px;
         }
 
         button {
-            padding: 12px 25px;
+            padding: 15px 30px;
             font-size: 1.2rem;
             font-weight: bold;
             border: none;
             border-radius: 50px;
             cursor: pointer;
+            width: 150px;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -58,12 +61,14 @@
             background-color: #4cd137;
             color: white;
             box-shadow: 0 5px 15px rgba(76, 209, 55, 0.4);
+            z-index: 5;
         }
 
         #noBtn {
             background-color: #ff4d6d;
             color: white;
             position: relative;
+            z-index: 10;
         }
 
         @keyframes wiggle {
@@ -82,7 +87,7 @@
         }
 
         #success-message h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: white;
             animation: bounce 0.5s infinite alternate;
         }
@@ -109,4 +114,15 @@
 </head>
 <body>
 
-    <div class="container" id="main
+    <div class="container" id="mainCard">
+        <h1 id="question">For My<br>宝贝老婆 ❤️</h1>
+        <p style="color: #d63384;">Will you be my Valentine? 🥺</p>
+        <div class="buttons">
+            <button id="yesBtn">Yes!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div id="success-message">
+        <h1>I love you! ❤️</h1>
+        <p style="color: white; font-size: 1.5rem; font-family: 'Pacifico'">Best wife ever! ✨</
