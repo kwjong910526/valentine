@@ -32,7 +32,7 @@
         h1 {
             font-family: 'Pacifico', cursive;
             color: #d63384;
-            line-height: 1.4; /* Added for better spacing between the two lines */
+            line-height: 1.4;
             transition: all 0.3s ease;
         }
 
@@ -157,8 +157,9 @@
         ];
 
         const moveNoButton = () => {
-            noSound.currentTime = 0;
-            noSound.play().catch(e => console.log("Audio waiting for first tap"));
+            // PLAY GOOFY SOUND
+            noSound.currentTime = 0; // Reset to start
+            noSound.play().catch(e => console.log("Sound enabled after first tap"));
 
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
@@ -167,9 +168,7 @@
             noBtn.style.top = `${y}px`;
             noBtn.classList.add('shaking');
 
-            // We update the second line of the text or the main question area
             if (noClicks < phrases.length) {
-                // Keep the 'For My' part and just change the bottom text
                 questionText.innerHTML = "For My<br>" + phrases[noClicks];
                 noClicks++;
             }
