@@ -125,4 +125,91 @@
 
     <div id="success-message">
         <h1>I love you! ❤️</h1>
-        <p style="color: white; font-size: 1.5rem; font-family: 'Pacifico'">Best wife ever! ✨</
+        <p style="color: white; font-size: 1.5rem; font-family: 'Pacifico'">Best wife ever! ✨</p>
+    </div>
+
+    <audio id="noSound">
+        <source src="boing.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const mainCard = document.getElementById('mainCard');
+        const successMsg = document.getElementById('success-message');
+        const questionText = document.getElementById('question');
+        const music = document.getElementById('bgMusic');
+        const noSound = document.getElementById('noSound');
+
+        let yesScale = 1;
+        let noClicks = 0;
+
+        const phrases = [
+            "Are you sure? 🤨",
+            "But I'm your fav husband! ✨",
+            "Don't do this... 😭",
+            "I'm telling the kids! 📢",
+            "I'll do the dishes! 🍽️",
+            "Click the green one! 🟢",
+            "You're being mean! 💔"
+        ];
+
+        const moveNoButton = (e) => {
+            if (e) e.preventDefault();
+            
+            // Loud Boing
+            noSound.volume = 1.0;
+            noSound.currentTime = 0;
+            noSound.play().catch(() => {});
+
+            // Random move within safe screen area
+            const padding = 50;
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
+            
+            noBtn.style.position = "fixed";
+            noBtn.style.left = `${Math.max(padding, x)}px`;
+            noBtn.style.top = `${Math.max(padding, y)}px`;
+
+            if (noClicks < phrases.length) {
+                questionText.innerHTML = "For My<br>" + phrases[noClicks];
+                noClicks++;
+            }
+
+            yesScale += 0.35;
+            yesBtn.style.transform = `scale(${yesScale})`;
+        };
+
+        // Mobile & PC listeners
+        noBtn.addEventListener('touchstart', moveNoButton);
+        noBtn.addEventListener('mouseover', moveNoButton);
+
+        yesBtn.addEventListener('click', () => {
+            mainCard.style.display = "none";
+            successMsg.style.display = "block";
+            document.body.style.background = "#ff4d6d";
+            
+            music.volume = 1.0;
+            music.play();
+            
+            setInterval(createHeart, 150);
+        });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-rain');
+            const types = ['❤️', '💖', '💝', '💕', '🧸', '🍓'];
+            heart.innerText = types[Math.floor(Math.random() * types.length)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 20 + "px";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+    </script>
+</body>
+</html>
