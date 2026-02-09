@@ -16,7 +16,7 @@
             background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
             font-family: 'Quicksand', sans-serif;
             overflow: hidden;
-            touch-action: manipulation; /* Prevents zooming on fast taps */
+            touch-action: manipulation;
         }
 
         .container {
@@ -39,7 +39,7 @@
 
         .buttons {
             display: flex;
-            flex-direction: column; /* Stacked for easier mobile reach */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 15px;
@@ -69,6 +69,7 @@
             color: white;
             position: relative;
             z-index: 10;
+            touch-action: none;
         }
 
         @keyframes wiggle {
@@ -161,12 +162,15 @@
         const moveNoButton = (e) => {
             if (e) e.preventDefault();
             
-            // Loud Boing
+            // Android Haptic Buzz
+            if (navigator.vibrate) navigator.vibrate(40);
+            
+            // Play Boing
             noSound.volume = 1.0;
             noSound.currentTime = 0;
             noSound.play().catch(() => {});
 
-            // Random move within safe screen area
+            // Screen boundaries
             const padding = 50;
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
@@ -184,7 +188,6 @@
             yesBtn.style.transform = `scale(${yesScale})`;
         };
 
-        // Mobile & PC listeners
         noBtn.addEventListener('touchstart', moveNoButton);
         noBtn.addEventListener('mouseover', moveNoButton);
 
@@ -194,7 +197,7 @@
             document.body.style.background = "#ff4d6d";
             
             music.volume = 1.0;
-            music.play();
+            music.play().catch(() => {});
             
             setInterval(createHeart, 150);
         });
