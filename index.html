@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My /n宝贝老婆 ❤️</title>
+    <title>For My 宝贝老婆 ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500&display=swap');
 
@@ -32,6 +32,7 @@
         h1 {
             font-family: 'Pacifico', cursive;
             color: #d63384;
+            line-height: 1.4; /* Added for better spacing between the two lines */
             transition: all 0.3s ease;
         }
 
@@ -69,5 +70,142 @@
             0% { transform: rotate(0deg); }
             25% { transform: rotate(8deg); }
             50% { transform: rotate(-8deg); }
-            75
+            75% { transform: rotate(8deg); }
+            100% { transform: rotate(0deg); }
+        }
 
+        .shaking {
+            animation: wiggle 0.1s infinite;
+        }
+
+        #success-message {
+            display: none;
+            text-align: center;
+        }
+
+        #success-message h1 {
+            font-size: 3rem;
+            color: white;
+            animation: bounce 0.5s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+
+        .heart-rain {
+            position: fixed;
+            top: -10%;
+            z-index: 1000;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <h1 id="question">For My<br>宝贝老婆 ❤️</h1>
+        <p style="color: #d63384; font-size: 1.2rem;">Will you be my Valentine? 🥺</p>
+        
+        <div class="buttons">
+            <button id="yesBtn">Yes!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div id="success-message">
+        <h1>I love you! ❤️</h1>
+        <p style="color: white; font-size: 1.8rem; font-family: 'Pacifico'">Best wife ever! ✨</p>
+    </div>
+
+    <audio id="noSound">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const mainCard = document.getElementById('mainCard');
+        const successMsg = document.getElementById('success-message');
+        const questionText = document.getElementById('question');
+        const music = document.getElementById('bgMusic');
+        const noSound = document.getElementById('noSound');
+
+        let yesScale = 1;
+        let noClicks = 0;
+
+        const phrases = [
+            "Are you sure? 🤨",
+            "But I'm your favorite husband! ✨",
+            "Don't do this to me... 😭",
+            "I'm telling the kids! 📢",
+            "Think of all the dishes I'll do! 🍽️",
+            "Look at the big green button! 🟢",
+            "Okay, now you're just being mean! 💔"
+        ];
+
+        const moveNoButton = () => {
+            noSound.currentTime = 0;
+            noSound.play().catch(e => console.log("Audio waiting for first tap"));
+
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = "absolute";
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            noBtn.classList.add('shaking');
+
+            // We update the second line of the text or the main question area
+            if (noClicks < phrases.length) {
+                // Keep the 'For My' part and just change the bottom text
+                questionText.innerHTML = "For My<br>" + phrases[noClicks];
+                noClicks++;
+            }
+
+            yesScale += 0.4;
+            yesBtn.style.transform = `scale(${yesScale})`;
+        };
+
+        noBtn.addEventListener('mouseover', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        yesBtn.addEventListener('click', () => {
+            mainCard.style.display = "none";
+            successMsg.style.display = "block";
+            document.body.style.background = "#ff4d6d";
+            
+            music.volume = 0.6;
+            music.play();
+            
+            setInterval(createHeart, 100);
+        });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-rain');
+            const types = ['❤️', '💖', '💝', '💕', '💗', '🧸', '🍓'];
+            heart.innerText = types[Math.floor(Math.random() * types.length)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 20 + "px";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+    </script>
+</body>
+</html>
