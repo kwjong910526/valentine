@@ -26,7 +26,7 @@
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
             max-width: 350px;
-            width: 80%;
+            width: 85%;
             z-index: 10;
         }
 
@@ -53,7 +53,7 @@
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            width: 150px;
+            width: 160px;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -72,23 +72,14 @@
             touch-action: none;
         }
 
-        @keyframes wiggle {
-            0% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(10deg); }
-            100% { transform: scale(1) rotate(0deg); }
-        }
-
-        .shaking {
-            animation: wiggle 0.1s ease-in-out;
-        }
-
         #success-message {
             display: none;
             text-align: center;
+            z-index: 20;
         }
 
         #success-message h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: white;
             animation: bounce 0.5s infinite alternate;
         }
@@ -116,8 +107,8 @@
 <body>
 
     <div class="container" id="mainCard">
-        <h1 id="question">For My<br>宝贝老婆 ❤️</h1>
-        <p style="color: #d63384;">Will you be my Valentine? 🥺</p>
+        <h1 id="question"><span id="titlePrefix">For My<br></span>宝贝老婆 ❤️</h1>
+        <p style="color: #d63384; font-weight: bold;">Will you be my Valentine? 🥺</p>
         <div class="buttons">
             <button id="yesBtn">Yes!</button>
             <button id="noBtn">No</button>
@@ -126,93 +117,4 @@
 
     <div id="success-message">
         <h1>I love you! ❤️</h1>
-        <p style="color: white; font-size: 1.5rem; font-family: 'Pacifico'">Best wife ever! ✨</p>
-    </div>
-
-    <audio id="noSound">
-        <source src="boing.mp3" type="audio/mpeg">
-    </audio>
-
-    <audio id="bgMusic" loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-        const yesBtn = document.getElementById('yesBtn');
-        const noBtn = document.getElementById('noBtn');
-        const mainCard = document.getElementById('mainCard');
-        const successMsg = document.getElementById('success-message');
-        const questionText = document.getElementById('question');
-        const music = document.getElementById('bgMusic');
-        const noSound = document.getElementById('noSound');
-
-        let yesScale = 1;
-        let noClicks = 0;
-
-        const phrases = [
-            "Are you sure? 🤨",
-            "But I'm your fav husband! ✨",
-            "Don't do this... 😭",
-            "I'm telling the kids! 📢",
-            "I'll do the dishes! 🍽️",
-            "Click the green one! 🟢",
-            "You're being mean! 💔"
-        ];
-
-        const moveNoButton = (e) => {
-            if (e) e.preventDefault();
-            
-            // Android Haptic Buzz
-            if (navigator.vibrate) navigator.vibrate(40);
-            
-            // Play Boing
-            noSound.volume = 1.0;
-            noSound.currentTime = 0;
-            noSound.play().catch(() => {});
-
-            // Screen boundaries
-            const padding = 50;
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
-            
-            noBtn.style.position = "fixed";
-            noBtn.style.left = `${Math.max(padding, x)}px`;
-            noBtn.style.top = `${Math.max(padding, y)}px`;
-
-            if (noClicks < phrases.length) {
-                questionText.innerHTML = "For My<br>" + phrases[noClicks];
-                noClicks++;
-            }
-
-            yesScale += 0.35;
-            yesBtn.style.transform = `scale(${yesScale})`;
-        };
-
-        noBtn.addEventListener('touchstart', moveNoButton);
-        noBtn.addEventListener('mouseover', moveNoButton);
-
-        yesBtn.addEventListener('click', () => {
-            mainCard.style.display = "none";
-            successMsg.style.display = "block";
-            document.body.style.background = "#ff4d6d";
-            
-            music.volume = 1.0;
-            music.play().catch(() => {});
-            
-            setInterval(createHeart, 150);
-        });
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart-rain');
-            const types = ['❤️', '💖', '💝', '💕', '🧸', '🍓'];
-            heart.innerText = types[Math.floor(Math.random() * types.length)];
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.fontSize = Math.random() * 20 + 20 + "px";
-            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
-        }
-    </script>
-</body>
-</html>
+        <p style="color: white
