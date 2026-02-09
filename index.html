@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Be My Valentine? (Goofy Edition)</title>
+    <title>For My 宝贝老婆 ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500&display=swap');
 
@@ -40,7 +40,7 @@
             justify-content: center;
             align-items: center;
             gap: 20px;
-            min-height: 200px; /* Space for the growing button */
+            min-height: 200px;
         }
 
         button {
@@ -65,7 +65,6 @@
             position: relative;
         }
 
-        /* Goofy Shaking Animation */
         @keyframes wiggle {
             0% { transform: rotate(0deg); }
             25% { transform: rotate(8deg); }
@@ -84,7 +83,7 @@
         }
 
         #success-message h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             color: white;
             animation: bounce 0.5s infinite alternate;
         }
@@ -112,7 +111,7 @@
 <body>
 
     <div class="container" id="mainCard">
-        <h1 id="question">Will you be my Valentine? 🥺</h1>
+        <h1 id="question">Will you be my Valentine, 宝贝老婆? 🥺</h1>
         <div class="buttons">
             <button id="yesBtn">Yes!</button>
             <button id="noBtn">No</button>
@@ -120,8 +119,8 @@
     </div>
 
     <div id="success-message">
-        <h1>YAY! ❤️</h1>
-        <p style="color: white; font-size: 1.5rem; font-family: 'Pacifico'">Best decision ever!</p>
+        <h1>I love you! ❤️</h1>
+        <p style="color: white; font-size: 1.8rem; font-family: 'Pacifico'">Best wife ever! ✨</p>
     </div>
 
     <audio id="bgMusic" loop>
@@ -141,32 +140,27 @@
 
         const phrases = [
             "Are you sure? 🤨",
-            "Pwease? ✨",
+            "But I'm your favorite husband! ✨",
             "Don't do this to me... 😭",
-            "I'm gonna tell your mom! 📢",
+            "I'm telling the kids! 📢",
+            "Think of all the dishes I'll do! 🍽️",
             "Look at the big green button! 🟢",
-            "You're just playing hard to get! 🏃‍♂️",
             "Okay, now you're just being mean! 💔"
         ];
 
         const moveNoButton = () => {
-            // Move button
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             noBtn.style.position = "absolute";
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
-
-            // Make it shake
             noBtn.classList.add('shaking');
 
-            // Update text
             if (noClicks < phrases.length) {
                 questionText.innerText = phrases[noClicks];
                 noClicks++;
             }
 
-            // Grow Yes button
             yesScale += 0.4;
             yesBtn.style.transform = `scale(${yesScale})`;
         };
@@ -180,9 +174,8 @@
         yesBtn.addEventListener('click', () => {
             mainCard.style.display = "none";
             successMsg.style.display = "block";
-            document.body.style.background = "linear-gradient(135deg, #ff4d6d 0%, #ff758f 100%)";
+            document.body.style.background = "#ff4d6d";
             
-            // Play goofy chiptune music
             music.volume = 0.5;
             music.play();
             
@@ -192,7 +185,7 @@
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart-rain');
-            const types = ['❤️', '💖', '💝', '💕', '💗', '🍓', '🧸'];
+            const types = ['❤️', '💖', '💝', '💕', '💗', '🧸', '🍓'];
             heart.innerText = types[Math.floor(Math.random() * types.length)];
             heart.style.left = Math.random() * 100 + "vw";
             heart.style.fontSize = Math.random() * 20 + 20 + "px";
